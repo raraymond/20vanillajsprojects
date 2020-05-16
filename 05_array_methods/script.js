@@ -28,6 +28,13 @@ const addData = (obj) => {
     updateDom();
 }
 
+const doubleMoney = () => {
+    data = data.map(user => {
+        return {...user, money: user.money * 2 }
+    })
+    updateDom();
+}
+
 //update DOM
 const updateDom = (providedData = data) => {
     //clear main div
@@ -51,6 +58,7 @@ const formatMoney = (number) => {
 
 //event listeners
 addUserBtn.addEventListener('click', getRandomUser)
+doubleBtn.addEventListener('click', doubleMoney)
 
 
 //initialize 3 random users
