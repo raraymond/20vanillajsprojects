@@ -23,15 +23,42 @@ const getRandomUser = async() => {
     addData(newUser);
 }
 
-const addData = (obj) => {
-    data.push(obj);
-    updateDom();
-}
 
+
+//double everyones money
 const doubleMoney = () => {
     data = data.map(user => {
         return {...user, money: user.money * 2 }
     })
+    updateDom();
+}
+
+//sort the users by who has the most to the least
+const sortByRichest = () => {
+    data.sort((a, b) => b.money - a.money);
+    updateDom();
+}
+
+//filter the data to only show millionaires
+const showMillionaires = () => {
+    data = data.filter(user => user.money >= 1000000)
+    updateDom();
+}
+
+//calculate the total wealth of all users
+const calculateWealth = () => {
+    const wealth = data.reduce((acc, user) => (acc += user.money), 0)
+
+    const wealthEl = document.createElement('div');
+    wealthEl.innerHTML = `<h3>Total Wealth: <strong>$${formatMoney(wealth)}</strong></h3>`
+
+    main.appendChild(wealthEl)
+
+}
+
+
+const addData = (obj) => {
+    data.push(obj);
     updateDom();
 }
 
@@ -59,6 +86,9 @@ const formatMoney = (number) => {
 //event listeners
 addUserBtn.addEventListener('click', getRandomUser)
 doubleBtn.addEventListener('click', doubleMoney)
+sortBtn.addEventListener('click', sortByRichest)
+showMillionairesBtn.addEventListener('click', showMillionaires)
+calcWealthBtn.addEventListener('click', calculateWealth)
 
 
 //initialize 3 random users
